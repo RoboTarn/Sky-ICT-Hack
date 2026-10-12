@@ -1,0 +1,25 @@
+export type Route = { nodes: string[]; seconds: number };
+export type Crew = { id: string; name: string; role: string; skills: string[]; certValidUntil: number; shiftEnd: number; zone: string; allowedZones: string[]; status: string; workload: number; currentTaskId: string | null };
+export type Task = { id: string; flightId: string | null; title: string; zone: string; earliest: number; duration: number; deadline: number; requiredSkills: string[]; minStaff: number; assignedCrew: string[]; gseIds: string[]; gseType: string | null; status: string; actualStart: number | null; actualEnd: number | null; priority: string; incidentId: string | null; dependencies: string[] };
+export type Analysis = { status: string; source: string; message: string; planId?: string; tradeoffs?: string; model?: string; revision?: number };
+export type Incident = { id: string; type: string; label: string; description: string; severity: string; zone: string; status: string; scheduledAt: number; taskIds: string[]; analysis?: Analysis; rejectedCandidates: { crewId: string; name: string; taskId: string; reason: string }[] };
+export type ForecastRow = { taskId: string; title: string; flightId: string | null; zone: string; start: number; end: number; deadline: number; slack: number; risk: string; crewIds: string[]; status: string; priority: string };
+export type Forecast = { horizon: number; rows: ForecastRow[]; lateTasks: number; riskFlights: number; blockedTasks: number; scheduledIncidents?: number; simulated: boolean };
+export type Member = { crewId: string; name: string; role: string; skills: string[]; origin: string; previousTaskId: string | null; previousTask: string; releaseAt: number; route: Route; workload: number; backfill: { crewId: string; taskId: string; origin: string; route: Route } | null };
+export type Assignment = { taskId: string; title: string; zone: string; crewIds: string[]; members: Member[]; gseIds: string[] };
+export type Plan = { id: string; incidentId: string; revision: number; status: string; rank: number; assignments: Assignment[]; cost: number; source: string; rationale: string; tradeoffs: string; before: Forecast; after: Forecast; recommended?: boolean; explanationSource?: string };
+export type Mission = { id: string; crewId: string; taskId: string; incidentId: string; planId: string; kind: string; title: string; zone: string; origin: string; route: Route; releaseAt: number; releaseDependencyId: string | null; gseIds: string[]; deadline: number; status: string; createdAt: number; checklist: string[]; checked: number[]; previousTask: string | null; previousTaskId: string | null; exception: string | null; departedAt?: number; etaAt?: number };
+export type World = {
+  runId: string; revision: number; now: number; baseTime: string; date: string; playing: boolean; speed: number;
+  gates: { id: string; x: number; y: number; label: string; closed: boolean }[];
+  nodes: { id: string; x: number; y: number; label: string }[];
+  edges: { from: string; to: string; seconds: number }[];
+  flights: { id: string; destination: string; gate: string; aircraft: string; etd: number; delay: number }[];
+  crew: Crew[]; tasks: Task[]; gse: { id: string; type: string; label: string; zone: string; status: string }[];
+  incidents: Incident[]; plans: Plan[]; missions: Mission[];
+  events: { seq: number; title: string; type: string; time: number }[];
+  scenarios: { id: string; label: string; description: string; severity: string }[];
+  forecast: Forecast; eventSeq: number;
+  ai: { status: string; source: string; message: string; planId?: string; tradeoffs?: string; model?: string };
+  aiConfig: { configured: boolean; model: string };
+};

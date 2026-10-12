@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-12",
+  "project": "SKY SWARM OPS",
+  "framework": "React + TypeScript + Vite",
+  "foundation": "Fluent UI React",
+  "fonts": ["Geist", "IBM Plex Sans Thai", "Geist Mono"],
+  "palette": "Midnight / graphite with cyan-blue accent and functional status colors",
+  "motion": "CSS transitions for operational route and state updates; reduced motion supported",
+  "spacing": "4px scale",
+  "scope": "Two connected product apps; no marketing-page structures"
+}

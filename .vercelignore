@@ -1,0 +1,14 @@
+.env*
+.runtime
+.venv
+node_modules
+output
+.playwright-cli
+.agents
+.hallmark
+backend/tests
+__pycache__
+.pytest_cache
+*.pyc
+*.tsbuildinfo
+VERIFICATION.md

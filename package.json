@@ -1,0 +1,38 @@
+{
+  "name": "sky-swarm-ops",
+  "private": true,
+  "version": "1.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k -n API,WEB -c blue,cyan \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --timeout-graceful-shutdown 3",
+    "dev:web": "vite --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "python -m pytest backend/tests -q",
+    "test:browser": "playwright-cli --session=swarm-check open http://127.0.0.1:5173/commander --browser=chrome && playwright-cli --session=swarm-check snapshot && playwright-cli --session=swarm-check run-code --filename=scripts/browser-check.js",
+    "check": "tsc -b && python -m pytest backend/tests -q",
+    "test:ui": "playwright-cli --session=swarm-ui open http://127.0.0.1:5173/commander --browser=chrome && playwright-cli --session=swarm-ui run-code --filename=scripts/ui-review.js"
+  },
+  "dependencies": {
+    "@fluentui/react-components": "^9.74.9",
+    "@fontsource/geist": "^5.3.0",
+    "@fontsource/geist-mono": "^5.3.0",
+    "@fontsource/ibm-plex-sans-thai": "^5.3.0",
+    "@phosphor-icons/react": "^2.1.10",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@playwright/cli": "^0.1.22",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "axe-core": "^4.14.0",
+    "concurrently": "^10.0.6",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  }
+}
